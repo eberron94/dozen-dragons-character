@@ -1,10 +1,9 @@
 import { throttle } from 'lodash';
 import { configureStore } from '@reduxjs/toolkit';
-import counterReducer from '../features/counter/counterSlice';
-import characterReducer from '../features/character/characterSlice';
-import abilityReducer from '../features/ability/abilitySlice';
-import skillReducer from '../features/skill/skillSlice';
-import saveReducer from '../features/save/saveSlice';
+import {characterReducer} from '../features/character';
+import {abilityReducer} from '../features/ability';
+import {skillReducer} from '../features/skill';
+import {saveReducer} from '../features/save';
 
 const saveState = (state) => {
     try {
@@ -30,7 +29,6 @@ const loadState = () => {
 export const store = configureStore({
     // preloadedState: loadState(),
     reducer: {
-        counter: counterReducer,
         character: characterReducer,
         ability: abilityReducer,
         skill: skillReducer,

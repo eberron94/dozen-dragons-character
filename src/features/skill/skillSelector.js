@@ -1,6 +1,6 @@
 import { createSelector } from '@reduxjs/toolkit';
-import characterSelector from '../character/characterSelector';
-import abilitySelector from '../ability/abilitySelector';
+import {characterSelector} from '../character';
+import {abilitySelector} from '../ability';
 import { capitalize } from 'lodash';
 
 const skillList = [
@@ -49,8 +49,8 @@ const maxProf = (key) =>
         return best;
     });
 
-const getBaseData = (skillLabel) => (prof, potency) => ({
-    skillLabel: capitalize(skillLabel),
+const getBaseData = (label) => (prof, potency) => ({
+    label: capitalize(label),
     proficiency: prof * 2,
     potency: prof > 0 ? potency : 0,
     baseValue: prof > 0 ? prof * 2 + potency : 0,
@@ -88,4 +88,4 @@ skillList.forEach((skillArr) => {
     selectors[skillArr[0] + 'Final'] = finalDataSelector();
 });
 
-export default selectors;
+export const skillSelector = selectors;

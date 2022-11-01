@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { name } from './characterSlice';
+import { characterAction } from './index';
 
 export const Character = (props) => {
     const nameLabel = useSelector((state) => state.character.name);
@@ -15,7 +15,7 @@ export const Character = (props) => {
                 value={nameLabel}
                 onChange={(e) => {
                     console.log(e.target.value);
-                    dispatch(name(e.target.value));
+                    dispatch(characterAction.name(e.target.value));
                 }}
             />
         </div>

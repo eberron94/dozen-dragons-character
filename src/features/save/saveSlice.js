@@ -3,12 +3,12 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
     percClassLevel: [100, 100, 100, 100],
     fortClassLevel: [100, 100, 100, 100],
-    refClassLevel: [100, 100, 100, 100],
+    refClassLevel: [1, 1, 100, 100],
     willClassLevel: [100, 100, 100, 100],
     extra: [{ id: 'fortitude', prof: 2 }],
 };
 
-export const defenseSlice = createSlice({
+const saveSlice = createSlice({
     name: 'defense',
     initialState,
     reducers: {
@@ -30,12 +30,5 @@ export const defenseSlice = createSlice({
     },
 });
 
-export const {
-    percClassLevel,
-    fortClassLevel,
-    refClassLevel,
-    willClassLevel,
-    extraDefense,
-} = defenseSlice.actions;
-
-export default defenseSlice.reducer;
+export const saveAction = saveSlice.actions;
+export const saveReducer = saveSlice.reducer;

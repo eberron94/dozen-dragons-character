@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import skillSelector from './skillSelector';
+import { skillSelector } from './index';
 
 export const Skill = (props) => {
     const arcanaData = useSelector(skillSelector.arcanaFinal);
@@ -10,7 +10,9 @@ export const Skill = (props) => {
 
     return (
         <div>
-            <div>{arcanaData.skillLabel} {arcanaData.finalValue}</div>
+            <div>
+                {arcanaData.skillLabel} {arcanaData.finalValue}
+            </div>
         </div>
     );
 };

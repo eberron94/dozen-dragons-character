@@ -1,6 +1,10 @@
 import { createSelector } from '@reduxjs/toolkit';
 
-const level = (state) => state.character.level;
+const selectCharacter = (state) => state.character;
+
+const name = createSelector(selectCharacter, (character) => character.name);
+
+const level = createSelector(selectCharacter, (character) => character.level);
 
 const potency = createSelector(level, (level) => {
     if (level < 4) return 0;
@@ -10,6 +14,4 @@ const potency = createSelector(level, (level) => {
     return 3;
 });
 
-const selectors = { level, potency };
-
-export default selectors;
+export const characterSelector = { name, level, potency };

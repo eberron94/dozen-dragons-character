@@ -5,7 +5,7 @@ const initialState = {
     level: 3,
 };
 
-export const characterSlice = createSlice({
+const characterSlice = createSlice({
     name: 'character',
     initialState,
     reducers: {
@@ -13,10 +13,8 @@ export const characterSlice = createSlice({
             state.name = String(action.payload);
         },
         level: (state, action) => (state.level = Number(action.payload)),
-        
     },
 });
 
-export const { name } = characterSlice.actions;
-
-export default characterSlice.reducer;
+export const characterAction = characterSlice.actions;
+export const characterReducer = characterSlice.reducer;

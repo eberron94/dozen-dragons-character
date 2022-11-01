@@ -2,8 +2,8 @@ import { createSelector } from '@reduxjs/toolkit';
 import { characterSelector } from '../character';
 import { abilitySelector } from '../ability';
 
-const selectSave = (state) => {
-    return state.save;
+const selectAC = (state) => {
+    return state.ac;
 };
 
 const getProf = (key, classLevelArr, extra, level) => {
@@ -20,8 +20,8 @@ const getProf = (key, classLevelArr, extra, level) => {
 };
 
 const getFinalData =
-    (label, modifierLabel) => (prof, potency, modifier) => ({
-        label,
+    (defenseLabel, modifierLabel) => (prof, potency, modifier) => ({
+        defenseLabel,
         proficiency: prof * 2,
         potency: prof > 0 ? potency : 0,
         modifier,
@@ -30,7 +30,7 @@ const getFinalData =
     });
 
 const fortitudeProf = createSelector(
-    [selectSave, characterSelector.level],
+    [selectAC, characterSelector.level],
     (defense, level) =>
         getProf('fortitude', defense.fortClassLevel, defense.extra, level)
 );
@@ -41,7 +41,7 @@ const fortitudeFinal = createSelector(
 );
 
 const reflexProf = createSelector(
-    [selectSave, characterSelector.level],
+    [selectAC, characterSelector.level],
     (defense, level) =>
         getProf('reflex', defense.refClassLevel, defense.extra, level)
 );
@@ -52,7 +52,7 @@ const reflexFinal = createSelector(
 );
 
 const willProf = createSelector(
-    [selectSave, characterSelector.level],
+    [selectAC, characterSelector.level],
     (defense, level) =>
         getProf('will', defense.willClassLevel, defense.extra, level)
 );
@@ -63,7 +63,7 @@ const willFinal = createSelector(
 );
 
 const perceptionProf = createSelector(
-    [selectSave, characterSelector.level],
+    [selectAC, characterSelector.level],
     (defense, level) =>
         getProf('perception', defense.percClassLevel, defense.extra, level)
 );
@@ -75,7 +75,7 @@ const perceptionFinal = createSelector(
 
 // const reflexFinalValue = createSelector([characterSelector.])
 
-export const saveSelector = {
+export const acSelector = {
     fortitudeProf,
     fortitudeFinal,
     reflexProf,

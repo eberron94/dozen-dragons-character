@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import abilitySelector from './abilitySelector';
+import { abilitySelector } from './index';
 
 export const Ability = (props) => {
     const [strScore, dexScore, conScore, intScore, wisScore, chaScore] =

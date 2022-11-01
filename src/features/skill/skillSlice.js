@@ -26,6 +26,5 @@ export const skillSlice = createSlice({
     },
 });
 
-export const { classProf, intProf, levelXProf, extraProf } = skillSlice.actions;
-
-export default skillSlice.reducer;
+export const skillAction = skillSlice.actions;
+export const skillReducer = skillSlice.reducer;

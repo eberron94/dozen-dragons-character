@@ -6,12 +6,12 @@ const initialState = {
     ancestryFlaw: ['int'],
     backgroundBoost: ['str', 'con'],
     level1: ['con', 'int'],
-    levelX: ['str','con','wis','str'],
+    levelX: ['str', 'con', 'wis', 'str'],
     extra: [],
-    flaw: ['int','cha'],
+    flaw: ['int', 'cha'],
 };
 
-export const abilitySlice = createSlice({
+const abilitySlice = createSlice({
     name: 'ability',
     initialState,
     reducers: {
@@ -39,14 +39,5 @@ export const abilitySlice = createSlice({
     },
 });
 
-export const {
-    keyAbility,
-    ancestryBoost,
-    ancestryFlaw,
-    backgroundBoost,
-    level1Boost,
-    levelXBoost,
-    extraBoost,
-} = abilitySlice.actions;
-
-export default abilitySlice.reducer;
+export const abilityAction = abilitySlice.actions;
+export const abilityReducer = abilitySlice.reducer;

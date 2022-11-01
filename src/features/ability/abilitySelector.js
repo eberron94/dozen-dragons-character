@@ -1,5 +1,5 @@
 import { createSelector } from '@reduxjs/toolkit';
-import characterSelector from '../character/characterSelector';
+import { characterSelector } from '../character';
 
 const selectAbility = (state) => state.ability;
 
@@ -87,7 +87,7 @@ const modifierArray = createSelector(
     (str, dex, con, int, wis, cha) => [str, dex, con, int, wis, cha]
 );
 
-const selectors = {
+export const abilitySelector = {
     strBoosts,
     dexBoosts,
     conBoosts,
@@ -115,5 +115,3 @@ const selectors = {
     chaModifierStr,
     modifierArray,
 };
-
-export default selectors;
