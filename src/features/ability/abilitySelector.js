@@ -40,8 +40,6 @@ const calcScoreFromBoost = (boosts) =>
 
 const calcModifierFromScore = (score) => Math.floor((score - 10) / 2);
 
-const signed = (modifier) => (modifier >= 0 ? '+' + modifier : modifier);
-
 const strBoosts = countBoosts('str');
 const dexBoosts = countBoosts('dex');
 const conBoosts = countBoosts('con');
@@ -68,21 +66,14 @@ const intModifier = createSelector(intScore, calcModifierFromScore);
 const wisModifier = createSelector(wisScore, calcModifierFromScore);
 const chaModifier = createSelector(chaScore, calcModifierFromScore);
 
-const strModifierStr = createSelector(strModifier, signed);
-const dexModifierStr = createSelector(dexModifier, signed);
-const conModifierStr = createSelector(conModifier, signed);
-const intModifierStr = createSelector(intModifier, signed);
-const wisModifierStr = createSelector(wisModifier, signed);
-const chaModifierStr = createSelector(chaModifier, signed);
-
 const modifierArray = createSelector(
     [
-        strModifierStr,
-        dexModifierStr,
-        conModifierStr,
-        intModifierStr,
-        wisModifierStr,
-        chaModifierStr,
+        strModifier,
+        dexModifier,
+        conModifier,
+        intModifier,
+        wisModifier,
+        chaModifier,
     ],
     (str, dex, con, int, wis, cha) => [str, dex, con, int, wis, cha]
 );
@@ -107,11 +98,5 @@ export const abilitySelector = {
     intModifier,
     wisModifier,
     chaModifier,
-    strModifierStr,
-    dexModifierStr,
-    conModifierStr,
-    intModifierStr,
-    wisModifierStr,
-    chaModifierStr,
     modifierArray,
 };

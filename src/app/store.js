@@ -1,9 +1,12 @@
 import { throttle } from 'lodash';
 import { configureStore } from '@reduxjs/toolkit';
-import {characterReducer} from '../features/character';
-import {abilityReducer} from '../features/ability';
-import {skillReducer} from '../features/skill';
-import {saveReducer} from '../features/save';
+import { characterReducer } from '../features/character';
+import { abilityReducer } from '../features/ability';
+import { skillReducer } from '../features/skill';
+import { saveReducer } from '../features/save';
+import { acReducer } from '../features/ac';
+import { featReducer } from '../features/feat';
+import { weaponReducer } from '../features/weapon';
 
 const saveState = (state) => {
     try {
@@ -33,6 +36,9 @@ export const store = configureStore({
         ability: abilityReducer,
         skill: skillReducer,
         save: saveReducer,
+        ac: acReducer,
+        feat: featReducer,
+        weapon: weaponReducer,
     },
 });
 

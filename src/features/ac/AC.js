@@ -4,13 +4,13 @@ import { useSelector, useDispatch } from 'react-redux';
 import { acSelector } from './index';
 
 export const AC = (props) => {
-    const reflexData = useSelector(acSelector.reflexFinal);
+    const unarmoredFinal = useSelector(acSelector.unarmoredFinal);
 
-    console.log(reflexData);
+    console.log(unarmoredFinal);
 
     return (
-        <div>
-            <div>REFLEX {reflexData.finalValue} </div>
+        <div className='ac'>
+            <div>AC {unarmoredFinal.finalValue} </div>
         </div>
     );
 };

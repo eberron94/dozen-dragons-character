@@ -5,9 +5,10 @@ const initialState = {
     intProf: [],
     levelX: [],
     extra: [],
+    lores: [{ id: 'War Lore', prof: 5, key: 'int' }],
 };
 
-export const skillSlice = createSlice({
+const skillSlice = createSlice({
     name: 'skill',
     initialState,
     reducers: {

@@ -1,13 +1,321 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@font-face {
+    font-family: PF2E;
+    src: url('../font/Pathfinder2eActions.ttf');
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+#root {
+    width: 100%;
+    height: 100%;
+}
+
+.App {
+    width: 100%;
+    height: 100%;
+    /* display: grid;
+    grid-template-columns: 40px 50px repeat(4, 1fr) 50px 40px;
+    grid-template-rows: 40px 50px repeat(8, 1fr) 50px 40px; */
+}
+
+.character,
+.ability,
+.skill,
+.hp,
+.save,
+.ac,
+.feat,
+.weapon {
+    display: none;
+}
+
+.character {
+    grid-column: 2 / 7;
+    grid-row: 2 / 4;
+
+    display: grid;
+    grid-template-columns: repeat(4, 20%) 20%;
+    grid-template-rows: 40% 30% 30%;
+}
+
+.character .name {
+    grid-column: 1 / 5;
+    grid-row: 1 / 2;
+
+    border: none;
+    border-bottom: solid 2px rgb(59, 69, 78);
+
+    font-size: 1.4rem;
+    height: 100%;
+}
+
+.character .level {
+    grid-column: 5 / 6;
+    grid-row: 1 / 3;
+
+    /* height: 3rem; */
+    /* width: max-content; */
+}
+
+.character .ancestry {
+    grid-column: 1 / 3;
+    grid-row: 2 / 3;
+}
+
+.character .background {
+    grid-column: 1 / 3;
+    grid-row: 3 / 4;
+}
+
+.character .class {
+    grid-column: 3 / 5;
+    grid-row: 2 / 3;
+}
+
+.character .culture {
+    grid-column: 3 / 5;
+    grid-row: 3 / 4;
+}
+
+.character .devotion {
+    grid-column: 5 / 6;
+    grid-row: 3 / 4;
+}
+
+.feat {
+    grid-column: 3 / 5;
+    grid-row: 4 / 11;
+
+    display: block;
+}
+
+.feat .feat-container {
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    /* gap: 0.5rem; */
+
+    /* width: 100%; */
+    margin: 1rem 1rem;
+}
+
+.feat .feat-container .feat-row {
+    display: flex;
+    width: 100%;
+    /* max-width: 750px; */
+    padding: 0.25rem 0;
+    border-top: 3px solid rgb(59, 69, 78);
+    gap: 1rem;
+}
+
+.feat-row-level-label {
+    height: 100%;
+    width: 80px;
+    display: flex;
+    flex-flow: column;
+    gap: 1rem;
+}
+
+.feat-row-slots {
+    display: flex;
+    flex-flow: row wrap;
+    gap: 0.5rem;
+    width: 100%;
+    max-width: 1000px;
+}
+
+.feat-slot {
+    flex-basis: 300px;
+
+    border: solid 3px #4e392ffc;
+    box-shadow: 5px 5px #4e392ffc;
+    max-width: 300px;
+    min-width: 200px;
+
+    background-color: white;
+    padding: 4px;
+    margin: 0px 5px 5px 0px;
+}
+
+.feat-slot .feat-slot-type {
+    display: flex;
+    justify-content: space-between;
+}
+
+.feat-slot .feat-slot-display {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.feat-slot .feat-slot-display .feat-slot-title {
+    flex: 1;
+    height: 1rem;
+    max-width: 240px;
+    border: none;
+    border-bottom: solid 2px rgb(59, 69, 78);
+    padding-bottom: 1rem;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* FEAT MODAL */
+
+.ReactModal__Body--open,
+.ReactModal__Body--open #root {
+    overflow: hidden;
+}
+
+.feat-overlay {
+    position: fixed;
+    inset: 0px;
+    background-color: rgba(59, 69, 78, 0.3);
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+}
+
+.feat-modal {
+    position: absolute;
+    top: 10vh;
+    right: 1rem;
+    left: 1rem;
+    bottom: 0px;
+    height: 90vh;
+    width: calc(100vw - 2rem);
+    background-color: white;
+    overflow: hidden;
+
+    padding: 2rem;
+
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.modal-filtering {
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.modal-filtering input{
+    border: none;
+    border-bottom: solid 1px rgb(59, 69, 78);
+}
+
+.paged-items {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    margin: 1rem 0;
+    border: 3px solid rgb(59, 69, 78);
+    padding: 1rem;
+
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 0.5rem;
+}
+
+.item {
+    border: 3px solid rgb(59, 69, 78);
+}
+
+.item-title {
+    display: flex;
+    justify-content: space-between;
+    background-color: #c9c290;
+}
+
+.item-title h3 {
+    font-size: large;
+}
+
+.item-traits {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    align-content: flex-start;
+    gap: 0;
+}
+
+.item-traits .trait {
+    border-color: #d8c483;
+    background-color: #522e2c;
+    border-style: double;
+    border-width: 2px;
+    color: white;
+    font-size: 1em;
+    font-style: normal;
+    font-weight: bold;
+    padding-right: 5px;
+    padding-left: 5px;
+    text-align: left;
+    text-indent: 0em;
+    font-size: 0.8em;
+    line-height: 1.4em;
+    text-transform: uppercase;
+}
+
+.trait.t-common {
+    background-color: #606c38;
+}
+
+.trait.t-uncommon {
+    background-color: #c45500;
+}
+
+.trait.t-rare {
+    background-color: #0c1466;
+}
+
+.trait.t-unique {
+    background-color: #800080;
+}
+
+.pagination {
+    position: absolute;
+    bottom: 1rem;
+    left: 2rem;
+    right: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    line-height: 20px;
+    font-size: x-small;
+}
+
+.pagination li {
+    flex: 1;
+    padding: 0;
+    border: 1px solid rgb(59, 69, 78);
+    text-align: center;
+
+    height: 20px;
+
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none;
+}
+
+.pagination li:first-child,
+.pagination li:last-child {
+    width: 80px;
+}
+
+.pagination li.active {
+    font-weight: 800;
+    height: 30px;
+}
+
+.page-link {
+    position: relative;
+    display: block;
+    height: 100%;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+        border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }

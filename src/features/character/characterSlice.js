@@ -1,8 +1,15 @@
 import { createSelector, createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-    name: '',
+    name: 'Lord Mantil',
     level: 3,
+    ancestry: 'human',
+    background: 'gladiator',
+    class: 'rogue',
+    size: 'medium',
+    landSpeed: 5,
+    flySpeed: 0,
+    burrowSpeed: 0,
 };
 
 const characterSlice = createSlice({
@@ -12,7 +19,12 @@ const characterSlice = createSlice({
         name: (state, action) => {
             state.name = String(action.payload);
         },
-        level: (state, action) => (state.level = Number(action.payload)),
+        level: (state, action) => {
+            state.level = Number(action.payload);
+        },
+        class:(state, action) => {
+            state.class = String(action.payload);
+        },
     },
 });
 

@@ -9,8 +9,8 @@ export const Save = (props) => {
     console.log(reflexData);
 
     return (
-        <div>
-            <div>REFLEX {reflexData.finalValue} </div>
+        <div className='save'>
+            <div>REFLEX {reflexData.finalValue.signed()} </div>
         </div>
     );
 };

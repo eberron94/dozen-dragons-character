@@ -20,68 +20,102 @@ const getProf = (key, classLevelArr, extra, level) => {
 };
 
 const getFinalData =
-    (defenseLabel, modifierLabel) => (prof, potency, modifier) => ({
-        defenseLabel,
+    (label) =>
+    (prof, potency, dexModifier, { type, itemBonus, dexCap }) => ({
+        label,
+        active: label === type,
         proficiency: prof * 2,
         potency: prof > 0 ? potency : 0,
-        modifier,
-        modifierLabel,
-        finalValue: modifier + (prof > 0 ? prof * 2 + potency : 0),
+        type,
+        itemBonus,
+        dexCap,
+        modifier: Math.min(dexModifier, dexCap),
+        modifierLabel: 'dex',
+        baseValue: 10 + (prof > 0 ? prof * 2 + potency : 0),
+        finalValue:
+            10 +
+            Math.min(dexModifier, dexCap) +
+            itemBonus +
+            (prof > 0 ? prof * 2 + potency : 0),
     });
 
-const fortitudeProf = createSelector(
+const getArmor = createSelector([selectAC], ({ itemBonus, dexCap, type }) => ({
+    type,
+    itemBonus,
+    dexCap,
+}));
+
+const unarmoredProf = createSelector(
     [selectAC, characterSelector.level],
     (defense, level) =>
-        getProf('fortitude', defense.fortClassLevel, defense.extra, level)
+        getProf('unarmored', defense.unarmoredClassLevel, defense.extra, level)
 );
 
-const fortitudeFinal = createSelector(
-    [fortitudeProf, characterSelector.potency, abilitySelector.conModifier],
-    getFinalData('fortitude', 'con')
+const unarmoredFinal = createSelector(
+    [
+        unarmoredProf,
+        characterSelector.potency,
+        abilitySelector.dexModifier,
+        getArmor,
+    ],
+    getFinalData('unarmored')
 );
 
-const reflexProf = createSelector(
+const lightProf = createSelector(
     [selectAC, characterSelector.level],
     (defense, level) =>
-        getProf('reflex', defense.refClassLevel, defense.extra, level)
+        getProf('light', defense.lightClassLevel, defense.extra, level)
 );
 
-const reflexFinal = createSelector(
-    [reflexProf, characterSelector.potency, abilitySelector.dexModifier],
-    getFinalData('reflex', 'dex')
+const lightFinal = createSelector(
+    [
+        lightProf,
+        characterSelector.potency,
+        abilitySelector.dexModifier,
+        getArmor,
+    ],
+    getFinalData('light')
 );
 
-const willProf = createSelector(
+const mediumProf = createSelector(
     [selectAC, characterSelector.level],
     (defense, level) =>
-        getProf('will', defense.willClassLevel, defense.extra, level)
+        getProf('medium', defense.mediumClassLevel, defense.extra, level)
 );
 
-const willFinal = createSelector(
-    [willProf, characterSelector.potency, abilitySelector.wisModifier],
-    getFinalData('will', 'wis')
+const mediumFinal = createSelector(
+    [
+        mediumProf,
+        characterSelector.potency,
+        abilitySelector.dexModifier,
+        getArmor,
+    ],
+    getFinalData('medium')
 );
 
-const perceptionProf = createSelector(
+const heavyProf = createSelector(
     [selectAC, characterSelector.level],
     (defense, level) =>
-        getProf('perception', defense.percClassLevel, defense.extra, level)
+        getProf('heavy', defense.heavyClassLevel, defense.extra, level)
 );
 
-const perceptionFinal = createSelector(
-    [perceptionProf, characterSelector.potency, abilitySelector.wisModifier],
-    getFinalData('perception', 'wis')
+const heavyFinal = createSelector(
+    [
+        heavyProf,
+        characterSelector.potency,
+        abilitySelector.dexModifier,
+        getArmor,
+    ],
+    getFinalData('heavy')
 );
-
-// const reflexFinalValue = createSelector([characterSelector.])
 
 export const acSelector = {
-    fortitudeProf,
-    fortitudeFinal,
-    reflexProf,
-    reflexFinal,
-    willProf,
-    willFinal,
-    perceptionProf,
-    perceptionFinal,
+    unarmoredProf,
+    unarmoredFinal,
+    lightProf,
+    lightFinal,
+    mediumProf,
+    mediumFinal,
+    heavyProf,
+    heavyFinal,
 };

@@ -16,24 +16,24 @@ export const Ability = (props) => {
     ] = useSelector(abilitySelector.modifierArray);
 
     return (
-        <div>
+        <div className='ability'>
             <div>
-                {strScore} {strModifier}
+                {strScore} {strModifier.signed()}
             </div>
             <div>
-                {dexScore} {dexModifier}
+                {dexScore} {dexModifier.signed()}
             </div>
             <div>
-                {conScore} {conModifier}
+                {conScore} {conModifier.signed()}
             </div>
             <div>
-                {intScore} {intModifier}
+                {intScore} {intModifier.signed()}
             </div>
             <div>
-                {wisScore} {wisModifier}
+                {wisScore} {wisModifier.signed()}
             </div>
             <div>
-                {chaScore} {chaModifier}
+                {chaScore} {chaModifier.signed()}
             </div>
         </div>
     );

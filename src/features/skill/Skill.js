@@ -5,13 +5,12 @@ import { skillSelector } from './index';
 
 export const Skill = (props) => {
     const arcanaData = useSelector(skillSelector.arcanaFinal);
-
-    console.log(arcanaData);
+    const loreData = useSelector(skillSelector.loresBase);
 
     return (
-        <div>
+        <div className='skill'>
             <div>
-                {arcanaData.skillLabel} {arcanaData.finalValue}
+                {arcanaData.label} {arcanaData.finalValue.signed()}
             </div>
         </div>
     );

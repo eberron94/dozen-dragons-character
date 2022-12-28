@@ -1,7 +1,8 @@
 import { createSelector } from '@reduxjs/toolkit';
-import {characterSelector} from '../character';
-import {abilitySelector} from '../ability';
+import { characterSelector } from '../character';
+import { abilitySelector } from '../ability';
 import { capitalize } from 'lodash';
+import { rpgUtil } from '../../util/rpgUtil';
 
 const skillList = [
     ['acrobatics', 'dex'],
@@ -10,6 +11,7 @@ const skillList = [
     ['crafting', 'int'],
     ['deception', 'cha'],
     ['diplomacy', 'cha'],
+    ['insight', 'wis'],
     ['intimidation', 'cha'],
     ['medicine', 'wis'],
     ['nature', 'wis'],
@@ -26,6 +28,18 @@ const selectSkill = (state) => {
     return state.skill;
 };
 
+const selectLores = createSelector(selectSkill, (skill) => skill.lores);
+
+const getMaxRankByLevel = (rank, level) => {
+    let best = rank;
+    if (level <= 20) best = Math.min(4, best);
+    if (level <= 14) best = Math.min(3, best);
+    if (level <= 6) best = Math.min(2, best);
+    if (level === 1) best = Math.min(1, best);
+
+    return best;
+};
+
 const maxProf = (key) =>
     createSelector([selectSkill, characterSelector.level], (skill, level) => {
         let best = 0;
@@ -39,14 +53,7 @@ const maxProf = (key) =>
 
         skill.levelX.filter((_, i) => i < level).forEach(profIf);
 
-        console.log(skill, level, best);
-
-        if (level <= 20) best = Math.min(4, best);
-        if (level <= 14) best = Math.min(3, best);
-        if (level <= 6) best = Math.min(2, best);
-        if (level === 1) best = Math.min(1, best);
-
-        return best;
+        return getMaxRankByLevel(best, level);
     });
 
 const getBaseData = (label) => (prof, potency) => ({
@@ -87,5 +94,29 @@ skillList.forEach((skillArr) => {
     selectors[skillId + 'Base'] = baseDataSelector();
     selectors[skillArr[0] + 'Final'] = finalDataSelector();
 });
+
+selectors.loresBase = createSelector(
+    [
+        selectLores,
+        abilitySelector.modifierArray,
+        characterSelector.level,
+        characterSelector.potency,
+    ],
+    (lores, modifierArray, level, potency) => {
+        const loreList = [];
+        lores.forEach((l) => {
+            const baseDataValue = getBaseData(l.id)(
+                getMaxRankByLevel(l.prof, level),
+                potency
+            );
+            const finalDataValue = getFinalData(l.key)(
+                baseDataValue,
+                modifierArray[rpgUtil.abilityKey2ArrayIndex(l.key)]
+            );
+            loreList.push(finalDataValue);
+        });
+        return loreList;
+    }
+);
 
 export const skillSelector = selectors;
