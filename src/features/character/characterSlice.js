@@ -1,11 +1,11 @@
-import { createSelector, createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
     name: 'Lord Mantil',
     level: 3,
     ancestry: 'human',
     background: 'gladiator',
-    class: 'rogue',
+    class: 'fighter',
     size: 'medium',
     landSpeed: 5,
     flySpeed: 0,

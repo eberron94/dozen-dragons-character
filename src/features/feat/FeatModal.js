@@ -1,13 +1,10 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { groupBy, kebabCase } from 'lodash';
+import { kebabCase } from 'lodash';
 import React, { useEffect, useRef, useState } from 'react';
 
-import { useSelector, useDispatch } from 'react-redux';
-import { useFetchArray, useSessionStorage } from '../../util/hook';
-import { featSelector } from './featSelector';
 import Modal from 'react-modal';
 import Paginate from 'react-paginate';
 import { arrayUtil } from '../../util/arrayUtil';
+import { useSessionStorage } from '../../util/hook';
 
 export const FeatSelectModal = ({
     children,
@@ -91,7 +88,7 @@ const FilteringPaginatedItems = ({ type, level, ...props }) => {
         if (maxLevel) {
             const maxNum = Number(maxLevel);
             newFilteredList = newFilteredList.filter(
-                ({ level }) => level <= maxLevel
+                ({ level }) => level <= maxNum
             );
         }
 

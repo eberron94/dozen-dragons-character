@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { groupBy, uniqueId } from 'lodash';
+import { groupBy } from 'lodash';
 import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useFetchArray } from '../../util/hook';
 import { stringUtil } from '../../util/stringUtil';
 import { FeatSelectModal } from './FeatModal';

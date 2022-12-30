@@ -92,7 +92,7 @@ export const useFetchArray = (url, sessionKey, initialValue = []) => {
                 .then((response) => response.json())
                 .then((data) => setDataList(data));
         }
-    }, []);
+    }, [dataList, sessionKey, setDataList, url]);
 
     return [dataList];
 };

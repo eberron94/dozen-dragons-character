@@ -4,23 +4,23 @@ import { rpgUtil } from '../../util/rpgUtil';
 import { characterAction, characterSelector } from './index';
 
 export const Character = (props) => {
-    const nameLabel = useSelector((state) => state.character.name);
+    // const nameLabel = useSelector((state) => state.character.name);
     const level = useSelector(characterSelector.level);
-    const ancestry = useSelector(characterSelector.ancestry);
+    // const ancestry = useSelector(characterSelector.ancestry);
     const characterClass = useSelector(characterSelector.characterClass);
 
     const dispatch = useDispatch();
 
     return (
         <div className='character'>
-            <input
+            {/* <input
                 className='name'
                 placeholder={'Character Name'}
                 value={nameLabel}
                 onChange={(e) => {
                     dispatch(characterAction.name(e.target.value));
                 }}
-            />
+            /> */}
 
             <div className='level'>
                 <div>Level</div>
@@ -56,11 +56,16 @@ export const Character = (props) => {
                 </select>
             </div>
 
-            <input className='ancestry' placeholder={'ancestry'} />
-            <input className='background' placeholder={'background'} />
+            {/* <input className='ancestry' placeholder={'ancestry'} /> */}
+            {/* <input className='background' placeholder={'background'} /> */}
             {/* <input className='class' placeholder={'class'} /> */}
-            <input className='culture' placeholder={'culture'} />
-            <input className='devotion' placeholder={'devotion'} />
+            {/* <input className='culture' placeholder={'culture'} /> */}
+            {/* <input className='devotion' placeholder={'devotion'} /> */}
+            <button className='devotion' 
+            onClick={()=>{
+                window.localStorage.clear('character');
+                window.location.reload();
+            }}>Reset</button>
         </div>
     );
 };

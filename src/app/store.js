@@ -30,7 +30,7 @@ const loadState = () => {
 };
 
 export const store = configureStore({
-    // preloadedState: loadState(),
+    preloadedState: loadState(),
     reducer: {
         character: characterReducer,
         ability: abilityReducer,

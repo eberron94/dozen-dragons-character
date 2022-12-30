@@ -2,13 +2,12 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
-import { store } from './app/store';
 import App from './App';
+import { store } from './app/store';
 import './css/default.css';
 import './css/index.css';
 import { stringUtil } from './util/stringUtil';
 
-import ReactDOM from 'react-dom';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 

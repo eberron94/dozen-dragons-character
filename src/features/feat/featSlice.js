@@ -2,13 +2,6 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
     list: [
-        {
-            id: 'feat.ancestry.aasimar.apg.aasimars-mercy',
-            type: 'ancestry',
-            slot: 'ancestry|1.0',
-            level: 1,
-            note: '',
-        },
     ],
     extraSlots: [],
 };
